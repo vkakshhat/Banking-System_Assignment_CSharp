@@ -71,6 +71,7 @@ namespace HMBank
                 }
             }
         }
+
         private void CreateAccount()
         {
             Console.WriteLine("Account Types:");
@@ -214,6 +215,12 @@ namespace HMBank
                 Console.WriteLine("------------------------");
             }
         }
-    }
 
+        // Main method to run the application
+        static void Main(string[] args)
+        {
+            BankApp_Task14 app = new BankApp_Task14();
+            app.Run();
+        }
+    }
 }
