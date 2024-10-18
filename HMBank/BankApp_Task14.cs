@@ -220,7 +220,7 @@ namespace HMBank
         static void Main(string[] args)
         {
             BankApp_Task14 app = new BankApp_Task14();
-            app.Run\\();
+            app.Run();
         }
     }
 }
