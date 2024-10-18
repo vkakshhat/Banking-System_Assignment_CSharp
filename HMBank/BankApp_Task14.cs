@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using Microsoft.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DAOLibrary;
 using EntityLibrary;
+using static Exception_Library.Exceptions_Task12;
 
 namespace HMBank
 {
@@ -36,38 +38,62 @@ namespace HMBank
                 Console.Write("Enter your choice: ");
                 int choice = Convert.ToInt32(Console.ReadLine());
 
-                switch (choice)
+                try
                 {
-                    case 1:
-                        CreateAccount();
-                        break;
-                    case 2:
-                        Deposit();
-                        break;
-                    case 3:
-                        Withdraw();
-                        break;
-                    case 4:
-                        GetBalance();
-                        break;
-                    case 5:
-                        Transfer();
-                        break;
-                    case 6:
-                        GetAccountDetails();
-                        break;
-                    case 7:
-                        ListAccounts();
-                        break;
-                    case 8:
-                        GetTransactions();
-                        break;
-                    case 9:
-                        Environment.Exit(0);
-                        break;
-                    default:
-                        Console.WriteLine("Invalid choice. Please choose again.");
-                        break;
+
+                    switch (choice)
+                    {
+                        case 1:
+                            CreateAccount();
+                            break;
+                        case 2:
+                            Deposit();
+                            break;
+                        case 3:
+                            Withdraw();
+                            break;
+                        case 4:
+                            GetBalance();
+                            break;
+                        case 5:
+                            Transfer();
+                            break;
+                        case 6:
+                            GetAccountDetails();
+                            break;
+                        case 7:
+                            ListAccounts();
+                            break;
+                        case 8:
+                            GetTransactions();
+                            break;
+                        case 9:
+                            Environment.Exit(0);
+                            break;
+                        default:
+                            Console.WriteLine("Invalid choice. Please choose again.");
+                            break;
+                    }
+                }
+                catch (InsufficientFundException ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                catch (InvalidAccountException ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                catch (OverDraftLimitExcededException ex)
+                {
+                    Console.WriteLine("Error: " + ex.Message);
+                }
+                catch (SqlException ex)
+                {
+                    Console.WriteLine("Database error: " + ex.Message);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("An error occurred: " + ex.Message);
                 }
             }
         }
@@ -216,11 +242,11 @@ namespace HMBank
             }
         }
 
-        // Main method to run the application
+        // Main method to start the application
         static void Main(string[] args)
         {
-            BankApp_Task14 app = new BankApp_Task14();
-            app.Run();
+            BankApp_Task14 bankApp = new BankApp_Task14();
+            bankApp.Run();
         }
     }
 }
